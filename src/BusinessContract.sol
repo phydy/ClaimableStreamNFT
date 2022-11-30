@@ -356,33 +356,27 @@ contract BusinessContract is Ownable, SuperAppBase {
     /**
      * claim a stream from a streamed credit
      */
-    function claimStream(uint256 nftId) external {
+    function claimStream(uint256 nftId, int96 flowrate) external {
         DebtInfo memory debt = idToStreamInfo[nftId];
         require(block.timestamp >= debt.claimDate, "not yet time");
         uint256 id_confirmation = tokenAddressStreamNftId[debt.token][
             msg.sender
         ];
         require(nftId == id_confirmation, "wrong token");
+        require(debt.flowRate <= flowrate, "flowrate");
 
-        //uint256 fr = ;//(debt.amount + ((debt.percentage * 1000) / 100)) / 90 days;
-
-        int96 flowrate = debt.flowRate; //int96(int256(fr));
-
-        createFlow(debt.token, msg.sender, 19273263748473);
+        createFlow(debt.token, msg.sender, flowrate);
     }
 
     /**
      * claim astream from a trnsfer credit
      */
-    function claimTransferStream(uint256 nftId) external {
+    function claimTransferStream(uint256 nftId, int96 flowrate) external {
         DebtInfo memory debt = idToInfo[nftId];
         require(block.timestamp >= debt.claimDate, "not yet time");
         uint256 id_confirmation = tokenAddressNftId[debt.token][msg.sender];
         require(nftId == id_confirmation, "wrong token");
-
-        uint256 fr = (debt.amount + ((debt.percentage / 1000) * 100)) / 90 days;
-
-        int96 flowrate = int96(int256(fr));
+        require(debt.flowRate <= flowrate, "flowrate");
 
         createFlow(debt.token, msg.sender, flowrate);
     }
@@ -390,7 +384,7 @@ contract BusinessContract is Ownable, SuperAppBase {
     /**
      * claim a stream from a service credit
      */
-    function claimCreditStream(uint256 nftId) external {
+    function claimCreditStream(uint256 nftId, int96 flowrate) external {
         DebtInfo memory debt = idToCreditInfo[nftId];
         require(block.timestamp >= debt.claimDate, "not yet time");
         uint256 id_confirmation = tokenAddressCreditNftId[debt.token][
@@ -398,9 +392,7 @@ contract BusinessContract is Ownable, SuperAppBase {
         ];
         require(nftId == id_confirmation, "wrong token");
 
-        uint256 fr = (debt.amount + ((debt.percentage * 1000) / 100)) / 90 days;
-
-        int96 flowrate = int96(int256(fr));
+        require(debt.flowRate <= flowrate, "flowrate");
 
         createFlow(debt.token, msg.sender, flowrate);
 

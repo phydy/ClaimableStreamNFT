@@ -204,7 +204,7 @@ contract TrustFrameworkTest is SuperfluidTester {
         );
         //Claim your stream with an nft
         //this is for the indivual who provided funds using streams
-        buss.claimStream(id_);
+        buss.claimStream(id_, 13847463532);
 
         vm.stopPrank();
     }
