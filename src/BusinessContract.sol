@@ -339,7 +339,7 @@ contract BusinessContract is Ownable, SuperAppBase {
         address token,
         address receiver_,
         int96 _flowRate
-    ) public {
+    ) private {
         _host.callAgreement(
             _cfa,
             abi.encodeWithSelector(

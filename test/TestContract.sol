@@ -207,5 +207,19 @@ contract TrustFrameworkTest is SuperfluidTester {
         buss.claimStream(id_, 13847463532);
 
         vm.stopPrank();
+        //claim a stream for transfer lender
+        vm.startPrank(transferlender);
+        uint256 ID = buss.tokenAddressNftId(
+            address(s_testToken),
+            transferlender
+        );
+        buss.claimTransferStream(ID, 1246475848478);
+        vm.stopPrank();
+
+        //claim stream for service delivered on credit
+        vm.startPrank(creditor);
+        uint256 ID = buss.tokenAddressNftId(address(s_testToken), creditor);
+        buss.claimTransferStream(ID, 124464848478);
+        vm.stopPrank();
     }
 }
