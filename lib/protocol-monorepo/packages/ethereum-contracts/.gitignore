@@ -1,0 +1,7 @@
+/coverage.json
+/coverage
+/.coverage_*
+/reports
+/artifacts
+/cache
+/docs/api

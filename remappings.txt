@@ -1,0 +1,6 @@
+chainlink/=lib/chainlink/
+ds-test/=lib/forge-std/lib/ds-test/src/
+forge-std/=lib/forge-std/src/
+interfaces/=lib/interfaces/
+@openzeppelin/=lib/openzeppelin-contracts/
+@superfluid/=lib/protocol-monorepo/packages/ethereum-contracts/contracts/
